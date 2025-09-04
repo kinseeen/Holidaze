@@ -1,9 +1,12 @@
 import React from "react";
+import Logo from "../assets/logo.png";
 
 function Header() {
   return (
-    <header className="p-4 bg-gray-100 flex justify-between items-center">
-      <h1 className="text-xl font-bold"> Holidaze </h1>
+    <header className="sticky top-0 shadow-md z-50 bg-primary h-[200px]">
+      <nav className="h-full flex items-center px-12">
+        <img src={Logo} alt="Logo" className="h-5/6" />
+      </nav>
     </header>
   );
 }
