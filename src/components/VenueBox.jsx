@@ -2,7 +2,7 @@ import React from "react";
 
 function VenueBox({ image, name, location, price }) {
   return (
-    <div className="w-64 bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
       <div className="flex justify-center items-center bg-gray-100 h-40">
         {image ? (
           <img src={image} alt={name} className="h-full w-full object-cover" />

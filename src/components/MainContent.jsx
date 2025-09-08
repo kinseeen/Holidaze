@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterBox from "./FilterBox";
-import VenueBox from "./VenueBox";
+import VenueList from "./VenueLists";
 
 function MainContent() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="flex flex-row">
-      <div className="w-64 h-screen sticky top-0">
-        <FilterBox />
+      <FilterBox mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+
+      <div className="flex-1 md:ml-64 p-4">
+        <VenueList />
       </div>
-      <div className=" ">{/* <VenueBox /> */}</div>
     </div>
   );
 }
