@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CustomButtonBig from "./CustomButtonBig";
 import CustomButtonSmall from "./CustomButtonSmall";
 import SearchBar from "./SearchBarTest";
@@ -6,17 +6,9 @@ import PriceFilter from "./PriceFilter";
 import GuestFilter from "./GuestFilter";
 import FilterRating from "./FilterRating";
 
-function FilterBox() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+function FilterBox({ mobileOpen, setMobileOpen }) {
   return (
     <>
-      <button
-        className="md:hidden fixed top-40 left-4 z-50 p-2 bg-transparent text-[#003366] rounded"
-        onClick={() => setMobileOpen(true)}
-      >
-        ☰
-      </button>
       <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
@@ -30,6 +22,7 @@ function FilterBox() {
           <GuestFilter />
           <FilterRating />
         </div>
+
         <div className="flex flex-col gap-2 mt-auto">
           <CustomButtonBig onClick={() => console.log("Create venue")}>
             Create a venue
@@ -66,6 +59,7 @@ function FilterBox() {
             <GuestFilter />
             <FilterRating />
           </div>
+
           <div className="flex flex-col gap-2 mt-auto">
             <CustomButtonBig onClick={() => console.log("Create venue")}>
               Create a venue
