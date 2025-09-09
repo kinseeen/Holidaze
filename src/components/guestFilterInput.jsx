@@ -18,7 +18,7 @@ function GuestInput({ minGuest, setMinGuest, maxGuest, setMaxGuest }) {
   const handleMinChange = (e) => {
     const value = e.target.value;
     setMinGuest(value);
-    validateGuestRange(value, minGuest);
+    validateGuestRange(value, maxGuest);
   };
 
   const handleMaxChange = (e) => {
