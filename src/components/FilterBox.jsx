@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButtonBig from "./CustomButtonBig";
 import CustomButtonSmall from "./CustomButtonSmall";
 import SearchBar from "./SearchBarTest";
 import PriceFilter from "./PriceFilter";
 import GuestFilter from "./GuestFilter";
 import FilterRating from "./FilterRating";
+import PriceInput from "./PriceInput";
 
-function FilterBox({ mobileOpen, setMobileOpen }) {
+function FilterBox({
+  mobileOpen,
+  setMobileOpen,
+  search,
+  setSearch,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+}) {
   return (
     <>
       <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
@@ -14,11 +24,17 @@ function FilterBox({ mobileOpen, setMobileOpen }) {
           <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
             Search for venue
           </h1>
-          <SearchBar />
+          <SearchBar search={search} setSearch={setSearch} />
           <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
             Filter
           </h1>
-          <PriceFilter />
+          <PriceInput
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+          />
+
           <GuestFilter />
           <FilterRating />
         </div>
@@ -51,11 +67,18 @@ function FilterBox({ mobileOpen, setMobileOpen }) {
             <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
               Search for venue
             </h1>
-            <SearchBar />
+            <div>
+              <SearchBar search={search} setSearch={setSearch} />
+            </div>
             <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
               Filter
             </h1>
-            <PriceFilter />
+            <PriceInput
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+            />
             <GuestFilter />
             <FilterRating />
           </div>
