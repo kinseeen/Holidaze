@@ -2,7 +2,7 @@ import React from "react";
 import VenueBox from "./VenueBox";
 import { useFetch } from "../hooks/useFetch";
 
-function VenueList({ search, minPrice, maxPrice }) {
+function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
   const { data, loading, error } = useFetch("/venues");
 
   if (loading) return <p> Loading venues.. </p>;
@@ -13,17 +13,23 @@ function VenueList({ search, minPrice, maxPrice }) {
   const min = minPrice ? parseFloat(minPrice) : -Infinity;
   const max = maxPrice ? parseFloat(maxPrice) : Infinity;
 
-  const minGuests = minGuest ? parseInt(minGuest) : -Infinity;
-const maxGuests = maxGuest ? parseInt(maxGuest) : Infinity;
+ const minG = minGuest !== "" ? parseInt(minGuest, 10) : -Infinity;
+const maxG = maxGuest !== "" ? parseInt(maxGuest, 10) : Infinity;
 
-  const venues = (data?.data || []).filter((venue) => {
-    const nameMatch = venue.name.toLowerCase().includes(query);
+const venues = (data?.data || []).filter((venue) => {
+  const nameMatch =
+    venue.name?.toLowerCase().includes(search.toLowerCase());
 
-    const price = venue.price ?? 0;
-    const priceInRange = price >= min && price <= max;
+  const price = venue.price ?? 0;
+  const minP = minPrice !== "" ? parseFloat(minPrice) : -Infinity;
+  const maxP = maxPrice !== "" ? parseFloat(maxPrice) : Infinity;
+  const priceInRange = price >= minP && price <= maxP;
 
-    return nameMatch && priceInRange;
-  });
+  const guest = venue.maxGuests ?? 0; // Use correct field from API
+  const guestInRange = guest >= minG && guest <= maxG;
+
+  return nameMatch && priceInRange && guestInRange;
+});
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

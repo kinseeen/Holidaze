@@ -38,6 +38,8 @@ function MainContent() {
   const [search, setSearch] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [minGuest, setMinGuest] = useState("");
+  const [maxGuest, setMaxGuest] = useState("");
 
   return (
     <div className="flex flex-row">
@@ -50,9 +52,19 @@ function MainContent() {
         setMinPrice={setMinPrice}
         maxPrice={maxPrice}
         setMaxPrice={setMaxPrice}
+        minGuest={minGuest}
+        setMinGuest={setMinGuest}
+        maxGuest={maxGuest}
+        setMaxGuest={setMaxGuest}
       />
       <div className="flex-1 md:ml-64 p-4">
-        <VenueList search={search} minPrice={minPrice} maxPrice={maxPrice} />
+        <VenueList
+          search={search}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          minGuest={minGuest}
+          maxGuest={maxGuest}
+        />
       </div>
     </div>
   );

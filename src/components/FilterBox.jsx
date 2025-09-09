@@ -6,6 +6,7 @@ import PriceFilter from "./PriceFilter";
 import GuestFilter from "./GuestFilter";
 import FilterRating from "./FilterRating";
 import PriceInput from "./PriceInput";
+import GuestInput from "./guestFilterInput";
 
 function FilterBox({
   mobileOpen,
@@ -16,6 +17,10 @@ function FilterBox({
   setMinPrice,
   maxPrice,
   setMaxPrice,
+  minGuest,
+  setMinGuest,
+  maxGuest,
+  setMaxGuest,
 }) {
   return (
     <>
@@ -35,7 +40,12 @@ function FilterBox({
             setMaxPrice={setMaxPrice}
           />
 
-          <GuestFilter />
+          <GuestInput
+            minGuest={minGuest}
+            setMinGuest={setMinGuest}
+            maxGuest={maxGuest}
+            setMaxGuest={setMaxGuest}
+          />
           <FilterRating />
         </div>
 
