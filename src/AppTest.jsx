@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "../src/components/MainLayout";
 import HomePage from "./pages/HomePage";
+import VenuePage from "./pages/SpecificVenuePage";
+import VenueList from "./components/VenueLists";
+import MainContent from "./components/mainContent";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* MainLayout wraps all pages */}
         <Route path="/" element={<MainLayout />}>
-          {/* Landing page */}
           <Route index element={<HomePage />} />
+          <Route path="venues" element={<MainContent />} />
+          <Route path="venues/:id" element={<VenuePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

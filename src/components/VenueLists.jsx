@@ -1,6 +1,7 @@
 import React from "react";
 import VenueBox from "./VenueBox";
 import { useFetch } from "../hooks/useFetch";
+import { Link } from "react-router-dom";
 
 function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
   const { data, loading, error } = useFetch("/venues");
@@ -36,14 +37,16 @@ function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {venues.map((venue) => (
-        <VenueBox
-          key={venue.id}
-          image={venue.media?.[0]?.url}
-          name={venue.name}
-          location={venue.location?.city}
-          price={`$${venue.price}`}
-          guestCapacity={venue.maxGuests}
-        />
+        <Link key={venue.id} to={`/venues/${venue.id}`}>
+          <VenueBox
+            key={venue.id}
+            image={venue.media?.[0]?.url}
+            name={venue.name}
+            location={venue.location?.city}
+            price={`$${venue.price}`}
+            guestCapacity={venue.maxGuests}
+          />
+        </Link>
       ))}
     </div>
   );

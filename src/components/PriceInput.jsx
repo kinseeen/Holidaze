@@ -1,8 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import FilterBoxMin from "./FilterBoxMin";
 import FilterBoxMax from "./FilterBoxMax";
-
-
 
 function PriceInput({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
   const [error, setError] = React.useState("");
@@ -28,7 +26,7 @@ function PriceInput({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
   };
 
   return (
-    <div>
+    <div className="flex gap-2">
       <FilterBoxMin value={minPrice} onChange={handleMinChange} />
       <FilterBoxMax value={maxPrice} onChange={handleMaxChange} />
       {error && <p className="text-red-500 text-sm">{error}</p>}

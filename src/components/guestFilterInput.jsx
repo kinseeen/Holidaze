@@ -28,7 +28,7 @@ function GuestInput({ minGuest, setMinGuest, maxGuest, setMaxGuest }) {
   };
 
   return (
-    <div>
+    <div className="flex gap-2">
       <FilterBoxMin value={minGuest} onChange={handleMinChange} />
       <FilterBoxMax value={maxGuest} onChange={handleMaxChange} />
       {error && <p className="text-red-500 text-sm">{error}</p>}
