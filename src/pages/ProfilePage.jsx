@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MainContent from "../components/MainContent";
 
-function HomePage() {
+
+function ProfilePage() {
   return (
     <div className="flex flex-col">
       <MainContent />

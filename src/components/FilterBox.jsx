@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CustomButtonBig from "./CustomButtonBig";
 import CustomButtonSmall from "./CustomButtonSmall";
 import SearchBar from "./SearchBarTest";
@@ -22,6 +23,7 @@ function FilterBox({
   maxGuest,
   setMaxGuest,
 }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
@@ -54,10 +56,10 @@ function FilterBox({
             Create a venue
           </CustomButtonBig>
           <div className="flex gap-2">
-            <CustomButtonSmall onClick={() => console.log("Log in")}>
+            <CustomButtonSmall onClick={() => navigate("/login")}>
               Log in
             </CustomButtonSmall>
-            <CustomButtonSmall onClick={() => console.log("Register")}>
+            <CustomButtonSmall onClick={() => navigate("/login")}>
               Register
             </CustomButtonSmall>
           </div>

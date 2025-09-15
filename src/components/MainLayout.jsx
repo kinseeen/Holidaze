@@ -19,25 +19,6 @@ function MainLayout() {
       <Header />
 
       <div className="flex flex-1">
-        {!isVenueDetail && (
-          <aside className="w-64 bg-gray-100 p-4">
-            <FilterBox
-              mobileOpen={mobileOpen}
-              setMobileOpen={setMobileOpen}
-              search={search}
-              setSearch={setSearch}
-              minPrice={minPrice}
-              setMinPrice={setMinPrice}
-              maxPrice={maxPrice}
-              setMaxPrice={setMaxPrice}
-              minGuest={minGuest}
-              setMinGuest={setMinGuest}
-              maxGuest={maxGuest}
-              setMaxGuest={setMaxGuest}
-            />
-          </aside>
-        )}
-
         <main className={`flex-1 p-4 ${!isVenueDetail ? "md:ml-64" : ""}`}>
           <Outlet
             context={{
