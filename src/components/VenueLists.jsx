@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import VenueBox from "./VenueBox";
 import { useFetch } from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 
-function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
+function VenueList({
+  search,
+  minPrice,
+  maxPrice,
+  minGuest,
+  maxGuest,
+  ratings,
+}) {
   const { data, loading, error } = useFetch("/venues");
 
   if (loading) return <p> Loading venues.. </p>;
@@ -23,15 +30,30 @@ function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
       ?.toLowerCase()
       .includes(search.toLowerCase());
 
+    const venueRating = Number(venue.rating) || 0;
+    const ratingMatch =
+      ratings.length === 0 || ratings.includes(Math.floor(venueRating));
+
     const price = venue.price ?? 0;
     const minP = minPrice !== "" ? parseFloat(minPrice) : -Infinity;
     const maxP = maxPrice !== "" ? parseFloat(maxPrice) : Infinity;
     const priceInRange = price >= minP && price <= maxP;
 
-    const guest = venue.maxGuests ?? 0; // Use correct field from API
+    const guest = venue.maxGuests ?? 0;
     const guestInRange = guest >= minG && guest <= maxG;
 
-    return (nameMatch || locationMatch) && priceInRange && guestInRange;
+    console.log(
+      "Venue ratings:",
+      (data?.data || []).map((v) => ({ name: v.name, rating: v.rating }))
+    );
+    console.log("Selected ratings:", ratings);
+
+    return (
+      (nameMatch || locationMatch) &&
+      priceInRange &&
+      guestInRange &&
+      ratingMatch
+    );
   });
 
   return (
@@ -45,6 +67,7 @@ function VenueList({ search, minPrice, maxPrice, minGuest, maxGuest }) {
             location={venue.location?.city}
             price={`$${venue.price}`}
             guestCapacity={venue.maxGuests}
+            rating={venue.rating}
           />
         </Link>
       ))}

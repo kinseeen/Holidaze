@@ -1,6 +1,7 @@
 import React from "react";
+import VenueRating from "./VenueRating";
 
-function VenueBox({ image, name, location, price, guestCapacity }) {
+function VenueBox({ image, name, location, price, guestCapacity, rating }) {
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
       <div className="flex justify-center items-center bg-gray-100 h-40">
@@ -18,6 +19,7 @@ function VenueBox({ image, name, location, price, guestCapacity }) {
           {" "}
           Guest capacity: {guestCapacity}
         </p>
+        {rating > 0 && <VenueRating rating={rating} />}
       </div>
     </div>
   );

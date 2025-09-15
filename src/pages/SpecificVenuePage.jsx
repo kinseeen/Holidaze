@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import React from "react";
 import { useFetch } from "../hooks/useFetch";
-import VenueRating from "../components/venueRaing";
+import VenueRating from "../components/VenueRating";
 import {
   AttachMoney,
   Diversity3,

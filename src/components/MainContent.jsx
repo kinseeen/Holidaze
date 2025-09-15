@@ -13,6 +13,7 @@ function MainContent() {
   const [maxPrice, setMaxPrice] = useState("");
   const [minGuest, setMinGuest] = useState("");
   const [maxGuest, setMaxGuest] = useState("");
+  const [ratings, setRatings] = useState([]);
 
   return (
     <div className="flex-1 p-4">
@@ -31,6 +32,8 @@ function MainContent() {
             setMinGuest={setMinGuest}
             maxGuest={maxGuest}
             setMaxGuest={setMaxGuest}
+            ratings={ratings}
+            setRatings={setRatings}
           />
         </aside>
       )}
@@ -40,6 +43,7 @@ function MainContent() {
         maxPrice={maxPrice}
         minGuest={minGuest}
         maxGuest={maxGuest}
+        ratings={ratings}
       />
     </div>
   );

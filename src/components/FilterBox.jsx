@@ -22,6 +22,8 @@ function FilterBox({
   setMinGuest,
   maxGuest,
   setMaxGuest,
+  ratings,
+  setRatings,
 }) {
   const navigate = useNavigate();
   return (
@@ -48,7 +50,7 @@ function FilterBox({
             maxGuest={maxGuest}
             setMaxGuest={setMaxGuest}
           />
-          <FilterRating />
+          <FilterRating onChange={setRatings} />
         </div>
 
         <div className="flex flex-col gap-2 mt-auto">
@@ -92,7 +94,7 @@ function FilterBox({
               setMaxPrice={setMaxPrice}
             />
             <GuestFilter />
-            <FilterRating />
+            <FilterRating onChange={setRatings} />
           </div>
 
           <div className="flex flex-col gap-2 mt-auto">

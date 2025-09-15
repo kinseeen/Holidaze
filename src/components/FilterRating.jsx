@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Star, StarBorder } from "@mui/icons-material";
 
-function FilterRating() {
+function FilterRating({ onChange }) {
   const levels = [1, 2, 3, 4, 5];
   const [checkedLevels, setCheckedLevels] = useState([]);
 
   const toggleLevel = (level) => {
-    setCheckedLevels((prev) =>
-      prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level]
-    );
+    setCheckedLevels((prev) => {
+      const updated = prev.includes(level)
+        ? prev.filter((l) => l !== level)
+        : [...prev, level];
+
+      onChange?.(updated); // ✅ send selected ratings to parent
+      return updated;
+    });
   };
 
   return (

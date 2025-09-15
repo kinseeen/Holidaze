@@ -15,5 +15,3 @@ function VenueRating({ rating }) {
 }
 
 export default VenueRating;
-
-
