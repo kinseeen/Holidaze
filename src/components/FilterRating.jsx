@@ -11,7 +11,7 @@ function FilterRating({ onChange }) {
         ? prev.filter((l) => l !== level)
         : [...prev, level];
 
-      onChange?.(updated); // ✅ send selected ratings to parent
+      onChange?.(updated);
       return updated;
     });
   };

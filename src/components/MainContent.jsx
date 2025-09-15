@@ -16,27 +16,26 @@ function MainContent() {
   const [ratings, setRatings] = useState([]);
 
   return (
-    <div className="flex-1 p-4">
+    <div className="flex-1 p-4 flex">
       {!isVenueDetail && (
-        <aside className="w-64 bg-gray-100 p-4">
-          <FilterBox
-            mobileOpen={mobileOpen}
-            setMobileOpen={setMobileOpen}
-            search={search}
-            setSearch={setSearch}
-            minPrice={minPrice}
-            setMinPrice={setMinPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-            minGuest={minGuest}
-            setMinGuest={setMinGuest}
-            maxGuest={maxGuest}
-            setMaxGuest={setMaxGuest}
-            ratings={ratings}
-            setRatings={setRatings}
-          />
-        </aside>
+        <FilterBox
+          mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
+          search={search}
+          setSearch={setSearch}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          minGuest={minGuest}
+          setMinGuest={setMinGuest}
+          maxGuest={maxGuest}
+          setMaxGuest={setMaxGuest}
+          ratings={ratings}
+          setRatings={setRatings}
+        />
       )}
+
       <VenueList
         search={search}
         minPrice={minPrice}

@@ -17,12 +17,12 @@ import BackButton from "../components/BackButton";
 function VenuePage({ image, name, location, price, guestCapacity }) {
   const { id } = useParams();
 
-  const { data, loading, error } = useFetch("/venues");
+  const { data, loading, error } = useFetch("/venues/" + id);
 
   if (loading) return <p> Loading venue </p>;
   if (error) return <p className="text-red-500"> Error: {error} </p>;
 
-  const venue = (data?.data || []).find((v) => String(v.id) === id);
+  const venue = data.data;
 
   if (!venue) return <p>Venue not found</p>;
 

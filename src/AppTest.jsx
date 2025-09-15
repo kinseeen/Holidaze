@@ -13,9 +13,9 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="venues" element={<MainContent />} />
-          <Route path="venues/:id" element={<VenuePage />} />
-          <Route path="login" element={<LoginPage />} />
         </Route>
+        <Route path="venues/:id" element={<VenuePage />} />
+        <Route path="login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -8,6 +8,7 @@ import GuestFilter from "./GuestFilter";
 import FilterRating from "./FilterRating";
 import PriceInput from "./PriceInput";
 import GuestInput from "./guestFilterInput";
+import CreateVenueModal from "./CreateVenue";
 
 function FilterBox({
   mobileOpen,
@@ -26,6 +27,7 @@ function FilterBox({
   setRatings,
 }) {
   const navigate = useNavigate();
+  const [createOpen, setCreateOpen] = React.useState(false);
   return (
     <>
       <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
@@ -54,7 +56,7 @@ function FilterBox({
         </div>
 
         <div className="flex flex-col gap-2 mt-auto">
-          <CustomButtonBig onClick={() => console.log("Create venue")}>
+          <CustomButtonBig onClick={() => setCreateOpen(true)}>
             Create a venue
           </CustomButtonBig>
           <div className="flex gap-2">
@@ -69,7 +71,12 @@ function FilterBox({
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-0 bg-white z-50 p-4 flex flex-col">
+        <div
+          className="fixed top-1/2 left-1/2 z-50 p-4 flex flex-col 
+                bg-white rounded-2xl shadow-lg 
+                w-[90%] max-w-md h-[80%] 
+                -translate-x-1/2 -translate-y-1/2"
+        >
           <button
             className="self-end mb-4 p-2 bg-gray-200 rounded"
             onClick={() => setMobileOpen(false)}
@@ -93,25 +100,35 @@ function FilterBox({
               maxPrice={maxPrice}
               setMaxPrice={setMaxPrice}
             />
-            <GuestFilter />
+            <GuestInput
+              minGuest={minGuest}
+              setMinGuest={setMinGuest}
+              maxGuest={maxGuest}
+              setMaxGuest={setMaxGuest}
+            />
             <FilterRating onChange={setRatings} />
           </div>
 
           <div className="flex flex-col gap-2 mt-auto">
-            <CustomButtonBig onClick={() => console.log("Create venue")}>
+            <CustomButtonBig onClick={() => setCreateOpen(true)}>
               Create a venue
             </CustomButtonBig>
             <div className="flex gap-2">
-              <CustomButtonSmall onClick={() => console.log("Log in")}>
+              <CustomButtonSmall onClick={() => navigate("/login")}>
                 Log in
               </CustomButtonSmall>
-              <CustomButtonSmall onClick={() => console.log("Register")}>
+              <CustomButtonSmall onClick={() => navigate("/login")}>
                 Register
               </CustomButtonSmall>
             </div>
           </div>
         </div>
       )}
+      <CreateVenueModal
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onCreate={(data) => console.log("New venue:", data)}
+      />
     </>
   );
 }
