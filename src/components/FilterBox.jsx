@@ -114,10 +114,10 @@ function FilterBox({
               Create a venue
             </CustomButtonBig>
             <div className="flex gap-2">
-              <CustomButtonSmall onClick={() => navigate("/login")}>
+              <CustomButtonSmall onClick={() => console.log("Log in")}>
                 Log in
               </CustomButtonSmall>
-              <CustomButtonSmall onClick={() => navigate("/login")}>
+              <CustomButtonSmall onClick={() => console.log("Register")}>
                 Register
               </CustomButtonSmall>
             </div>

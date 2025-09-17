@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CustomButtonSmall from "./CustomButtonSmall";
+import { usePost } from "../hooks/ApiCalls";
 
 function CreateVenueModal({ open, onClose, onCreate }) {
   const [formData, setFormData] = useState({
@@ -11,10 +12,12 @@ function CreateVenueModal({ open, onClose, onCreate }) {
     maxGuests: "",
     wifi: false,
     breakfast: false,
-    pets: false,
+    parking: false,
     location: "",
     country: "",
   });
+
+  const { post, loading, error } = usePost("/holidaze/venues");
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -24,10 +27,31 @@ function CreateVenueModal({ open, onClose, onCreate }) {
         type === "checkbox" ? checked : type === "file" ? files[0] : value,
     }));
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onCreate(formData);
-    onClose();
+
+    try {
+      const newVenue = await post(formData);
+      onCreate(newVenue);
+      onClose();
+
+      setFormData({
+        name: "",
+        image: null,
+        description: "",
+        stars: "",
+        price: "",
+        maxGuests: "",
+        wifi: false,
+        breakfast: false,
+        parking: false,
+        location: "",
+        country: "",
+      });
+    } catch (err) {
+      console.error("Failed to create venue:", err);
+    }
   };
 
   if (!open) return null;
@@ -148,11 +172,11 @@ function CreateVenueModal({ open, onClose, onCreate }) {
             />
             <CustomButtonSmall
               type="submit"
-              onClick={handleSubmit}
               className="bg-primary text-white p-2 rounded-lg mt-4"
             >
-              Create Venue
+              {loading ? "Creating..." : "Create Venue"}
             </CustomButtonSmall>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
           </form>
         </div>
       </div>

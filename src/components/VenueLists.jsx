@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import VenueBox from "./VenueBox";
-import { useFetch } from "../hooks/useFetch";
+import { useGet } from "../hooks/ApiCalls";
 import { Link } from "react-router-dom";
 
 function VenueList({
@@ -11,12 +11,13 @@ function VenueList({
   maxGuest,
   ratings,
 }) {
-  const { data, loading, error } = useFetch("/venues");
+  const { response, loading, error } = useGet("/holidaze/venues");
 
   if (loading) return <p> Loading venues.. </p>;
   if (error) return <p className="text-red-500"> Error: {error}</p>;
 
   const query = search.toLowerCase();
+  console.log("venues response:", response);
 
   const min = minPrice ? parseFloat(minPrice) : -Infinity;
   const max = maxPrice ? parseFloat(maxPrice) : Infinity;
@@ -24,11 +25,12 @@ function VenueList({
   const minG = minGuest !== "" ? parseInt(minGuest, 10) : -Infinity;
   const maxG = maxGuest !== "" ? parseInt(maxGuest, 10) : Infinity;
 
-  const venues = (data?.data || []).filter((venue) => {
+  const venues = (response?.data || []).filter((venue) => {
     const nameMatch = venue.name?.toLowerCase().includes(search.toLowerCase());
     const locationMatch = venue.location?.city
       ?.toLowerCase()
       .includes(search.toLowerCase());
+    console.log("venues response:", response);
 
     const venueRating = Number(venue.rating) || 0;
     const ratingMatch =
@@ -41,12 +43,6 @@ function VenueList({
 
     const guest = venue.maxGuests ?? 0;
     const guestInRange = guest >= minG && guest <= maxG;
-
-    console.log(
-      "Venue ratings:",
-      (data?.data || []).map((v) => ({ name: v.name, rating: v.rating }))
-    );
-    console.log("Selected ratings:", ratings);
 
     return (
       (nameMatch || locationMatch) &&

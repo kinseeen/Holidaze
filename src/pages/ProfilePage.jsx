@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-
+import ProfilePageInfo from "../components/ProfilePageInfo";
 
 function ProfilePage() {
   return (
     <div className="flex flex-col">
-      <MainContent />
+      <ProfilePageInfo />
     </div>
   );
 }
 
-export default HomePage;
+export default ProfilePage;

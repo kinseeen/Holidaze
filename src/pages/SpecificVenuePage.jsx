@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import React from "react";
-import { useFetch } from "../hooks/useFetch";
+import { useGet } from "../hooks/ApiCalls";
 import VenueRating from "../components/VenueRating";
 import {
   AttachMoney,
@@ -17,12 +17,12 @@ import BackButton from "../components/BackButton";
 function VenuePage({ image, name, location, price, guestCapacity }) {
   const { id } = useParams();
 
-  const { data, loading, error } = useFetch("/venues/" + id);
+  const { response, loading, error } = useGet("/holidaze/venues/" + id);
 
   if (loading) return <p> Loading venue </p>;
   if (error) return <p className="text-red-500"> Error: {error} </p>;
 
-  const venue = data.data;
+  const venue = response.data;
 
   if (!venue) return <p>Venue not found</p>;
 
