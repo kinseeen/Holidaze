@@ -6,6 +6,7 @@ import VenueList from "./components/VenueLists";
 import MainContent from "./components/MainContent";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
+import DefaultLayout from "./components/DefaultLayout";
 
 function App() {
   return (
@@ -13,28 +14,15 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="venues" element={<MainContent />} />
         </Route>
-        <Route path="venues/:id" element={<VenuePage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="/profile/:name" element={<ProfilePage />} />
+        <Route element={<DefaultLayout />}>
+          <Route path="venues/:id" element={<VenuePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="/profile/:name" element={<ProfilePage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-// import React from "react";
-// import MainLayout from "../src/components/MainLayout";
-// function App() {
-//   return (
-//     <div>
-//       <main>
-//         <MainLayout />
-//       </main>
-//     </div>
-//   );
-// }
-
-// export default App;

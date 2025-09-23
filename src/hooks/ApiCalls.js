@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../hooks/AuthProvider";
 
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const API_KEY = "2cce9a49-627c-4905-b533-2c29345300a8";
 
 export function useGet(endpoint) {
   const [response, setResponse] = useState(null);
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2luZUFwaUtleSIsImVtYWlsIjoia2luZTEyM0BzdHVkLm5vcm9mZi5ubyIsImlhdCI6MTc1NTYzNTkxN30.OnAo8v5-70HeH8-JmNDoUzPmm79j5--3d3CcUr6Xk3s";
+  const token = user?.token;
 
   const headers = {
     "Content-Type": "application/json",
@@ -53,15 +54,18 @@ export function useGet(endpoint) {
 }
 
 export function usePost(endpoint) {
+  const { user } = useAuth(); // get token from auth
+  const token = user?.token;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // const user = JSON.parse(localStorage.getItem("user") || "{}");
+  // const token = user?.token;
 
   const post = async (body = {}) => {
+    if (!token) throw new Error("User is not logged in");
     setLoading(true);
     setError(null);
-
-    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -69,6 +73,7 @@ export function usePost(endpoint) {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          "X-Noroff-API-Key": API_KEY,
         },
         body: JSON.stringify(body),
       });

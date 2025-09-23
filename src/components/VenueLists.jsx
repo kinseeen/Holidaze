@@ -17,7 +17,6 @@ function VenueList({
   if (error) return <p className="text-red-500"> Error: {error}</p>;
 
   const query = search.toLowerCase();
-  console.log("venues response:", response);
 
   const min = minPrice ? parseFloat(minPrice) : -Infinity;
   const max = maxPrice ? parseFloat(maxPrice) : Infinity;
@@ -30,7 +29,6 @@ function VenueList({
     const locationMatch = venue.location?.city
       ?.toLowerCase()
       .includes(search.toLowerCase());
-    console.log("venues response:", response);
 
     const venueRating = Number(venue.rating) || 0;
     const ratingMatch =

@@ -5,7 +5,7 @@ import { usePost } from "../hooks/ApiCalls";
 function CreateVenueModal({ open, onClose, onCreate }) {
   const [formData, setFormData] = useState({
     name: "",
-    image: null,
+    imageFile: null,
     description: "",
     stars: "",
     price: "",
@@ -13,7 +13,8 @@ function CreateVenueModal({ open, onClose, onCreate }) {
     wifi: false,
     breakfast: false,
     parking: false,
-    location: "",
+    pets: false,
+    city: "",
     country: "",
   });
 
@@ -28,17 +29,51 @@ function CreateVenueModal({ open, onClose, onCreate }) {
     }));
   };
 
+  const uploadImage = async (file) => {
+    return "https://your-uploaded-image-url.com/" + file.name;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let imageUrl = "";
+    if (formData.imageFile) {
+      imageUrl = await uploadImage(formData.imageFile);
+    }
+
+    const payload = {
+      name: formData.name,
+      description: formData.description,
+      price: Number(formData.price),
+      maxGuests: Number(formData.maxGuests),
+      rating: Number(formData.stars) || 0,
+      media: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              alt: formData.name,
+            },
+          ]
+        : [],
+      meta: {
+        wifi: formData.wifi,
+        parking: formData.parking,
+        breakfast: formData.breakfast,
+        pets: formData.pets,
+      },
+      location: {
+        city: formData.city || null,
+        country: formData.country || null,
+      },
+    };
+
     try {
-      const newVenue = await post(formData);
+      const newVenue = await post(payload);
       onCreate(newVenue);
-      onClose();
 
       setFormData({
         name: "",
-        image: null,
+        imageFile: null,
         description: "",
         stars: "",
         price: "",
@@ -46,9 +81,12 @@ function CreateVenueModal({ open, onClose, onCreate }) {
         wifi: false,
         breakfast: false,
         parking: false,
-        location: "",
+        pets: false,
+        city: "",
         country: "",
       });
+
+      onClose();
     } catch (err) {
       console.error("Failed to create venue:", err);
     }
@@ -75,22 +113,24 @@ function CreateVenueModal({ open, onClose, onCreate }) {
             <input
               type="text"
               name="name"
-              placeholder="Venue name"
+              placeholder="Venue Name"
               value={formData.name}
               onChange={handleChange}
               className="border p-2 rounded"
               required
             />
+
             <label className="flex flex-col gap-1">
               Venue Image
               <input
                 type="file"
-                name="image"
+                name="imageFile"
                 accept="image/*"
                 onChange={handleChange}
                 className="border p-2 rounded"
               />
             </label>
+
             <textarea
               name="description"
               placeholder="Description"
@@ -98,7 +138,9 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               onChange={handleChange}
               className="border p-2 rounded"
               rows={3}
+              required
             />
+
             <input
               type="number"
               name="stars"
@@ -109,6 +151,7 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               min="1"
               max="5"
             />
+
             <input
               type="number"
               name="price"
@@ -116,7 +159,9 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               value={formData.price}
               onChange={handleChange}
               className="border p-2 rounded"
+              required
             />
+
             <input
               type="number"
               name="maxGuests"
@@ -124,8 +169,10 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               value={formData.maxGuests}
               onChange={handleChange}
               className="border p-2 rounded"
+              required
             />
-            <div className="flex gap-4">
+
+            <div className="flex gap-4 flex-wrap">
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -153,15 +200,27 @@ function CreateVenueModal({ open, onClose, onCreate }) {
                 />
                 Parking
               </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="pets"
+                  checked={formData.pets}
+                  onChange={handleChange}
+                />
+                Pets
+              </label>
             </div>
+
             <input
               type="text"
-              name="location"
-              placeholder="Location (city, address)"
-              value={formData.location}
+              name="city"
+              placeholder="City"
+              value={formData.city}
               onChange={handleChange}
               className="border p-2 rounded"
+              required
             />
+
             <input
               type="text"
               name="country"
@@ -169,13 +228,16 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               value={formData.country}
               onChange={handleChange}
               className="border p-2 rounded"
+              required
             />
+
             <CustomButtonSmall
               type="submit"
               className="bg-primary text-white p-2 rounded-lg mt-4"
             >
               {loading ? "Creating..." : "Create Venue"}
             </CustomButtonSmall>
+
             {error && <p className="text-red-500 mt-2">{error}</p>}
           </form>
         </div>

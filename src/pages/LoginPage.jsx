@@ -2,38 +2,26 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import CustomButtonSmall from "../components/CustomButtonSmall";
 import { usePost } from "../hooks/ApiCalls";
+import { useAuth } from "../hooks/AuthProvider";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const { response, loading, error, post } = usePost("/auth/login");
+  const { loading, error, post } = usePost("/auth/login");
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await post({ email, password });
-
-      const user = result.data;
-
-      localStorage.setItem("token", user.accessToken);
-      localStorage.setItem("profileName", user.name);
-
-      navigate(`/profile/${user.name}`);
+      const userData = await login({ email, password });
+      console.log("Logged in user:", userData);
+      navigate(`/profile/${userData.name}`);
     } catch (err) {
-      console.error("login failed", err);
+      console.error("LoginPage error:", err);
     }
   };
-  /* 
-     const { data, loading, error } = post("/auth/login");
-     requestBody={"email": "first.last@stud.noroff.no","password": "UzI1NiIsInR5cCI"}
-
-     1. create POST function (so that you actually can log in)
-     2. when the loign is successful 
-          a. add accessToken to local storage
-          b. go to profile page (fetch name from accessToken) NOTE: jwt.io to debug token
-  */
   return (
     <div className="flex items-center justify-center min-h-screen">
       <form

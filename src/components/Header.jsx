@@ -22,7 +22,10 @@ function Header() {
           </button>
         </nav>
       </header>
-      <FilterBox mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+      {mobileOpen && (
+        <FilterBox mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+      )}
+      {/* <FilterBox mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} /> */}
     </>
   );
 }

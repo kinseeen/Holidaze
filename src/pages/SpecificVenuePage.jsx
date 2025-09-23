@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import React from "react";
 import { useGet } from "../hooks/ApiCalls";
 import VenueRating from "../components/VenueRating";
+import Calendar from "../components/Calendar";
+import BookingForm from "../components/BookingForm";
+import { useAuth } from "../hooks/AuthProvider";
 import {
   AttachMoney,
   Diversity3,
@@ -16,8 +19,11 @@ import BackButton from "../components/BackButton";
 
 function VenuePage({ image, name, location, price, guestCapacity }) {
   const { id } = useParams();
+  const { user } = useAuth();
 
-  const { response, loading, error } = useGet("/holidaze/venues/" + id);
+  const { response, loading, error } = useGet(
+    `/holidaze/venues/${id}?_bookings=true`
+  );
 
   if (loading) return <p> Loading venue </p>;
   if (error) return <p className="text-red-500"> Error: {error} </p>;
@@ -27,27 +33,35 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
   if (!venue) return <p>Venue not found</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6">
       <BackButton className="mb-4" />
-      <div className="flex items-center justify-between mb-4">
+
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
         <h1 className="text-3xl font-bold text-gray-900">{venue.name}</h1>
         <VenueRating rating={venue.rating} />
       </div>
-
-      <img
-        src={venue.media?.[0]?.url}
-        alt={venue.name}
-        className="w-full max-w-md rounded-xl shadow-lg mt-2"
-      />
-
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex-shrink-0 w-full lg:w-1/2">
+          <img
+            src={venue.media?.[0]?.url}
+            alt={venue.name}
+            className="w-full h-auto rounded-xl shadow-lg object-cover"
+          />
+        </div>
+        <div className="flex-1 w-full lg:w-1/2">
+          <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-3">
+            Availability
+          </h2>
+          <Calendar bookings={venue.bookings} />
+        </div>
+      </div>
       <div className="mt-8">
         <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-3">
           About
         </h2>
         <p className="text-gray-700">{venue.description}</p>
       </div>
-      <hr className="my-8 border-gray-300" />
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {venue.price && (
           <div className="flex items-center gap-2">
             <AttachMoney className="text-green-600" /> ${venue.price} per night
@@ -80,11 +94,7 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
           </div>
         )}
       </div>
-
-      <hr className="my-8 border-gray-300" />
-
-      {/* Location */}
-      <div className="flex flex-wrap gap-6 text-gray-700">
+      <div className="mt-8 flex flex-wrap gap-6 text-gray-700">
         {venue.location?.address && (
           <div className="flex items-center gap-2">
             <Apartment /> {venue.location.address}
@@ -93,6 +103,18 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
         {venue.location?.country && (
           <div className="flex items-center gap-2">
             <PinDrop /> {venue.location.country}
+          </div>
+        )}
+        {user && (
+          <div className="flex-1 mt-6 lg:mt-0">
+            <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-4">
+              Book this venue
+            </h2>
+            <BookingForm
+              venueId={venue.id}
+              bookings={venue.bookings}
+              onBookingSuccess={() => {}}
+            />
           </div>
         )}
       </div>
