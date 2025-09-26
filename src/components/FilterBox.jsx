@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButtonBig from "./CustomButtonBig";
 import CustomButtonSmall from "./CustomButtonSmall";
-import SearchBar from "./SearchBarTest";
 import PriceInput from "./PriceInput";
 import GuestInput from "./guestFilterInput";
 import FilterRating from "./FilterRating";
@@ -30,39 +29,74 @@ function FilterBox({
   const navigate = useNavigate();
   const [createOpen, setCreateOpen] = useState(false);
 
+  const [searchInput, setSearchInput] = useState(search);
+
+  const handleSearch = () => {
+    setSearch(searchInput.trim());
+  };
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+
+    if (e.target.value === "") {
+      setSearch("");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const renderFilters = () => (
+    <>
+      <div className="mb-4">
+        <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
+          Search for venue
+        </h1>
+        <input
+          type="text"
+          value={searchInput}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
+          placeholder="Search venues..."
+          className="w-full p-2 border rounded-lg"
+        />
+        <CustomButtonBig onClick={handleSearch} className="w-full mt-2">
+          Search
+        </CustomButtonBig>
+      </div>
+
+      <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
+        Filter
+      </h1>
+      <h2 className="text-l font-normal border-b-2 border-primary pb-2 pt-4">
+        Price
+      </h2>
+      <PriceInput
+        minPrice={minPrice}
+        setMinPrice={setMinPrice}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+      />
+      <h2 className="text-l font-normal border-b-2 border-primary pb-2 pt-4">
+        Guests
+      </h2>
+      <GuestInput
+        minGuest={minGuest}
+        setMinGuest={setMinGuest}
+        maxGuest={maxGuest}
+        setMaxGuest={setMaxGuest}
+      />
+      <FilterRating onChange={setRatings} />
+    </>
+  );
+
   return (
     <>
       <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
-            Search for venue
-          </h1>
-          <SearchBar search={search} setSearch={setSearch} />
-          <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
-            Filter
-          </h1>
-          <h2 className="text-l font-normal border-b-2 border-primary pb-2 pt-4">
-            Price{" "}
-          </h2>
-          <PriceInput
-            minPrice={minPrice}
-            setMinPrice={setMinPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-          />
-          <h2 className="text-l font-normal border-b-2 border-primary pb-2 pt-4">
-            {" "}
-            Guests{" "}
-          </h2>
-          <GuestInput
-            minGuest={minGuest}
-            setMinGuest={setMinGuest}
-            maxGuest={maxGuest}
-            setMaxGuest={setMaxGuest}
-          />
-          <h1 className="border-b-2 border-primary pb-2 pt-4"></h1>
-          <FilterRating onChange={setRatings} />
-        </div>
+        <div className="flex flex-col gap-2">{renderFilters()}</div>
 
         <div className="flex flex-col gap-2 mt-auto">
           {user ? (
@@ -101,26 +135,7 @@ function FilterBox({
           </button>
 
           <div className="flex flex-col gap-2 flex-1 overflow-y-auto">
-            <h1 className="text-xl font-normal border-b-2 border-primary pb-2">
-              Search for venue
-            </h1>
-            <SearchBar search={search} setSearch={setSearch} />
-            <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
-              Filter
-            </h1>
-            <PriceInput
-              minPrice={minPrice}
-              setMinPrice={setMinPrice}
-              maxPrice={maxPrice}
-              setMaxPrice={setMaxPrice}
-            />
-            <GuestInput
-              minGuest={minGuest}
-              setMinGuest={setMinGuest}
-              maxGuest={maxGuest}
-              setMaxGuest={setMaxGuest}
-            />
-            <FilterRating onChange={setRatings} />
+            {renderFilters()}
           </div>
 
           <div className="flex flex-col gap-2 mt-auto">
@@ -151,7 +166,6 @@ function FilterBox({
         </div>
       )}
 
-      {/* Create Venue Modal */}
       <CreateVenueModal
         open={createOpen}
         onClose={() => setCreateOpen(false)}

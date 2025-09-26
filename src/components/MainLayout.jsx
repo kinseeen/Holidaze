@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
+// import Footer from "./Footer";
 
 function MainLayout() {
   return (
@@ -9,6 +10,7 @@ function MainLayout() {
       <main className="flex-1 p-4">
         <Outlet />
       </main>
+      {/* <Footer /> */}
     </div>
   );
 }

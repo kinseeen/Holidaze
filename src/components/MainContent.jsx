@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VenueList from "./VenueLists";
-import { useOutletContext, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FilterBox from "./FilterBox";
 import CreateVenueModal from "./CreateVenue";
 import { useAuth } from "../hooks/AuthProvider";
@@ -8,6 +8,7 @@ import { useAuth } from "../hooks/AuthProvider";
 function MainContent() {
   const location = useLocation();
   const isVenueDetail = /^\/venues\/\d+$/.test(location.pathname);
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -15,9 +16,22 @@ function MainContent() {
   const [minGuest, setMinGuest] = useState("");
   const [maxGuest, setMaxGuest] = useState("");
   const [ratings, setRatings] = useState([]);
-  const [venues, setVenues] = [];
+  const [venues, setVenues] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const { user } = useAuth;
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchVenues = async () => {
+      try {
+        const res = await fetch("https://v2.api.noroff.dev/holidaze/venues");
+        const data = await res.json();
+        setVenues(data.data || []);
+      } catch (err) {
+        console.error("Error fetching venues:", err);
+      }
+    };
+    fetchVenues();
+  }, []);
 
   const handleAddVenue = (venue) => {
     setVenues((prev) => [...prev, venue]);
@@ -45,7 +59,8 @@ function MainContent() {
           />
         )}
       </aside>
-      <div className="flex-1">
+
+      <div className="flex-1 flex flex-col">
         <VenueList
           venues={venues}
           search={search}
@@ -56,10 +71,11 @@ function MainContent() {
           ratings={ratings}
         />
       </div>
+
       <CreateVenueModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        onCreate={handleAddVenue} // 👈 add new venue to state
+        onCreate={handleAddVenue}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import { usePost } from "../hooks/ApiCalls";
 function CreateVenueModal({ open, onClose, onCreate }) {
   const [formData, setFormData] = useState({
     name: "",
-    imageFile: null,
+    imageUrl: "",
     description: "",
     stars: "",
     price: "",
@@ -36,25 +36,18 @@ function CreateVenueModal({ open, onClose, onCreate }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let imageUrl = "";
-    if (formData.imageFile) {
-      imageUrl = await uploadImage(formData.imageFile);
-    }
-
     const payload = {
       name: formData.name,
       description: formData.description,
       price: Number(formData.price),
       maxGuests: Number(formData.maxGuests),
       rating: Number(formData.stars) || 0,
-      media: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              alt: formData.name,
-            },
-          ]
-        : [],
+      media: [
+        {
+          url: formData.imageUrl || "https://placehold.co/600x400",
+          alt: formData.name,
+        },
+      ],
       meta: {
         wifi: formData.wifi,
         parking: formData.parking,
@@ -62,18 +55,23 @@ function CreateVenueModal({ open, onClose, onCreate }) {
         pets: formData.pets,
       },
       location: {
+        address: null,
         city: formData.city || null,
+        zip: null,
         country: formData.country || null,
+        continent: null,
+        lat: 0,
+        lng: 0,
       },
     };
-
     try {
       const newVenue = await post(payload);
       onCreate(newVenue);
 
+      // Reset
       setFormData({
         name: "",
-        imageFile: null,
+        imageUrl: "",
         description: "",
         stars: "",
         price: "",
@@ -91,7 +89,6 @@ function CreateVenueModal({ open, onClose, onCreate }) {
       console.error("Failed to create venue:", err);
     }
   };
-
   if (!open) return null;
 
   return (
@@ -119,15 +116,16 @@ function CreateVenueModal({ open, onClose, onCreate }) {
               className="border p-2 rounded"
               required
             />
-
             <label className="flex flex-col gap-1">
-              Venue Image
+              Venue Image URL
               <input
-                type="file"
-                name="imageFile"
-                accept="image/*"
+                type="text"
+                name="imageUrl"
+                placeholder="https://example.com/image.jpg"
+                value={formData.imageUrl || ""}
                 onChange={handleChange}
                 className="border p-2 rounded"
+                required
               />
             </label>
 
