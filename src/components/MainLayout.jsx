@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
-// import Footer from "./Footer";
 
 function MainLayout() {
+  const [search, setSearch] = useState("");
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      <Header setSearch={setSearch} />
       <main className="flex-1 p-4">
-        <Outlet />
+        <Outlet context={{ search, setSearch }} />
       </main>
-      {/* <Footer /> */}
     </div>
   );
 }

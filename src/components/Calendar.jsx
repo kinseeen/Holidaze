@@ -34,19 +34,6 @@ function Calendar({ bookings = [] }) {
     setMonthCalendar(calendar);
   }, [year, month]);
 
-  /*
-   * 1. Click a date in the calendar, and print out the entire date (yyyy-MM-dd)
-   *
-   *
-   * 2. fetch data from endpoint
-   *     - print the data to make sure you get it as expected
-   * 3. do something on the dates where there is a happening.
-   *    - Start with just showing something on the actual 'fromDate', and 'toDate'
-   *    - Add logic for the between-those-dates later
-   *
-   *
-   */
-
   const previous = () => {
     const { month: prevMonth, year: prevYear } = Temporal.PlainYearMonth.from({
       month,
@@ -106,13 +93,13 @@ function Calendar({ bookings = [] }) {
 
       <div className="grid grid-cols-7 flex-grow">
         {monthCalendar
-          .filter((day) => day.isInMonth) // remove filler days
+          .filter((day) => day.isInMonth)
           .map((day, index) => (
             <div
               key={index}
               className={`border border-slate-700 p-2 ${
                 isBooked(day.date)
-                  ? "bg-gray-400 text-white" // booked
+                  ? "bg-gray-400 text-white"
                   : "bg-white hover:bg-gray-800"
               }`}
             >

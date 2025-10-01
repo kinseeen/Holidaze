@@ -21,13 +21,14 @@ function ChangeProfilePicture({ profile, onUpdate }) {
 
   return (
     <div className="mt-3">
-      <button
+      <span
         onClick={handleChangeAvatar}
-        disabled={loading}
-        className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300"
+        className={`text-blue-600 underline cursor-pointer ${
+          loading ? "opacity-50 pointer-events-none" : ""
+        }`}
       >
         {loading ? "Updating..." : "Change profile picture"}
-      </button>
+      </span>
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );

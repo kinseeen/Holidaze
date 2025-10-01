@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/AuthProvider";
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const API_KEY = "2cce9a49-627c-4905-b533-2c29345300a8";
 
-export function useGet(endpoint, params = {}) {
+export function useGet(endpoint) {
   const [response, setResponse] = useState(null);
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -19,9 +19,6 @@ export function useGet(endpoint, params = {}) {
 
   useEffect(() => {
     let isMounted = true;
-
-    const query = new URLSearchParams(params).toString();
-    const url = `${API_BASE_URL}${endpoint}${query ? `?${query}` : ""}`;
 
     const fetchData = async () => {
       setLoading(true);
@@ -81,11 +78,7 @@ export function usePost(endpoint) {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(
-          errorData.errors
-            ? errorData.errors.map((e) => `${e.path}: ${e.message}`).join(", ")
-            : errorData.message || `Error ${response.status}`
-        );
+        throw new Error(errorData.message || `Error ${response.status}`);
       }
 
       const result = await response.json();

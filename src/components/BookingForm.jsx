@@ -62,11 +62,10 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 border p-4 rounded-lg max-w-md"
+      className="flex flex-col sm:flex-row sm:items-end sm:gap-4 border p-4 rounded-lg w-full"
     >
-      <h2 className="text-lg font-semibold">Book this venue</h2>
-
-      <label className="flex flex-col gap-1">
+      {/* Date From */}
+      <label className="flex flex-col gap-1 flex-1">
         From
         <input
           type="date"
@@ -74,11 +73,11 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           value={formData.dateFrom}
           onChange={handleChange}
           required
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-1 flex-1">
         To
         <input
           type="date"
@@ -86,11 +85,11 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           value={formData.dateTo}
           onChange={handleChange}
           required
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-1 flex-1">
         Guests
         <input
           type="number"
@@ -99,19 +98,19 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           value={formData.guests}
           onChange={handleChange}
           required
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
       </label>
 
       <button
         type="submit"
         disabled={loading}
-        className="bg-blue-600 text-white p-2 rounded-lg mt-2 hover:bg-blue-700"
+        className="bg-blue-600 text-white p-2 rounded-lg mt-2 sm:mt-0 sm:w-auto hover:bg-blue-700"
       >
         {loading ? "Booking..." : "Book Now"}
       </button>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 w-full">{error}</p>}
     </form>
   );
 }

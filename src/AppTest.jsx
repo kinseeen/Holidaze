@@ -7,7 +7,7 @@ import MainContent from "./components/MainContent";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import DefaultLayout from "./components/DefaultLayout";
-import RegisterUserPage from "./pages/RegisterUserPage";
+import RegisterPage from "./pages/RegisterUserPage";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="venues/:id" element={<VenuePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile/:name" element={<ProfilePage />} />
-          <Route path="/register" element={<RegisterUserPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

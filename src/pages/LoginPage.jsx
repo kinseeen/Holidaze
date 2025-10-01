@@ -4,6 +4,7 @@ import CustomButtonSmall from "../components/CustomButtonSmall";
 import { usePost } from "../hooks/ApiCalls";
 import { useAuth } from "../hooks/AuthProvider";
 
+
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

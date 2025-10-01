@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButtonBig from "./CustomButtonBig";
 import CustomButtonSmall from "./CustomButtonSmall";
-import PriceInput from "./PriceInput";
-import GuestInput from "./guestFilterInput";
-import FilterRating from "./FilterRating";
+// import PriceInput from "./PriceInput";
+// import GuestInput from "./guestFilterInput";
+// import FilterRating from "./FilterRating";
 import CreateVenueModal from "./CreateVenue";
 import { useAuth } from "../hooks/AuthProvider";
 
@@ -13,26 +13,31 @@ function FilterBox({
   setMobileOpen,
   search,
   setSearch,
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
-  minGuest,
-  setMinGuest,
-  maxGuest,
-  setMaxGuest,
-  ratings,
-  setRatings,
+  // minPrice,
+  // setMinPrice,
+  // maxPrice,
+  // setMaxPrice,
+  // minGuest,
+  // setMinGuest,
+  // maxGuest,
+  // setMaxGuest,
+  // ratings,
+  // setRatings,
 }) {
   const { user } = useAuth();
   const isVenueManager = Boolean(user?.venueManager);
   const navigate = useNavigate();
   const [createOpen, setCreateOpen] = useState(false);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [searchInput, setSearchInput] = useState(search);
 
   const handleSearch = () => {
     setSearch(searchInput.trim());
+    setCurrentPage(1);
   };
 
   const handleInputChange = (e) => {
@@ -68,7 +73,7 @@ function FilterBox({
         </CustomButtonBig>
       </div>
 
-      <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
+      {/* <h1 className="text-xl font-normal border-b-2 border-primary pb-2 pt-4">
         Filter
       </h1>
       <h2 className="text-l font-normal border-b-2 border-primary pb-2 pt-4">
@@ -90,82 +95,11 @@ function FilterBox({
         setMaxGuest={setMaxGuest}
       />
       <FilterRating onChange={setRatings} />
-    </>
+    </> */}
   );
 
   return (
     <>
-      <div className="hidden md:flex fixed top-16 left-0 bottom-0 w-64 p-4 shadow-md flex-col">
-        <div className="flex flex-col gap-2">{renderFilters()}</div>
-
-        <div className="flex flex-col gap-2 mt-auto">
-          {user ? (
-            <>
-              {isVenueManager && (
-                <CustomButtonBig onClick={() => setCreateOpen(true)}>
-                  Create Venue
-                </CustomButtonBig>
-              )}
-              <CustomButtonBig
-                onClick={() => navigate(`/profile/${user.name}`)}
-              >
-                Profile
-              </CustomButtonBig>
-            </>
-          ) : (
-            <>
-              <CustomButtonSmall onClick={() => navigate("/login")}>
-                Log in
-              </CustomButtonSmall>
-              <CustomButtonSmall onClick={() => navigate("/register")}>
-                Register
-              </CustomButtonSmall>
-            </>
-          )}
-        </div>
-      </div>
-
-      {mobileOpen && (
-        <div className="fixed top-1/2 left-1/2 z-50 p-4 flex flex-col bg-white rounded-2xl shadow-lg w-[90%] max-w-md h-[80%] -translate-x-1/2 -translate-y-1/2">
-          <button
-            className="self-end mb-4 p-2 bg-gray-200 rounded"
-            onClick={() => setMobileOpen(false)}
-          >
-            ✕
-          </button>
-
-          <div className="flex flex-col gap-2 flex-1 overflow-y-auto">
-            {renderFilters()}
-          </div>
-
-          <div className="flex flex-col gap-2 mt-auto">
-            {user ? (
-              <>
-                <CustomButtonBig
-                  onClick={() => navigate(`/profile/${user.name}`)}
-                >
-                  Profile
-                </CustomButtonBig>
-                {isVenueManager && (
-                  <CustomButtonBig onClick={() => setCreateOpen(true)}>
-                    Create Venue
-                  </CustomButtonBig>
-                )}
-              </>
-            ) : (
-              <>
-                <CustomButtonSmall onClick={() => navigate("/login")}>
-                  Log in
-                </CustomButtonSmall>
-                <CustomButtonSmall onClick={() => navigate("/register")}>
-                  Register
-                </CustomButtonSmall>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
       <CreateVenueModal
         open={createOpen}
         onClose={() => setCreateOpen(false)}

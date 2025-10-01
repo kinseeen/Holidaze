@@ -59,9 +59,12 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
         <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-3">
           About
         </h2>
-        <p className="text-gray-700">{venue.description}</p>
+        <p className="text-gray-700 pb-10">{venue.description}</p>
       </div>
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-3">
+        Included
+      </h2>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 pb-10">
         {venue.price && (
           <div className="flex items-center gap-2">
             <AttachMoney className="text-green-600" /> ${venue.price} per night
@@ -93,8 +96,6 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
             <DirectionsCar className="text-gray-600" /> Parking available
           </div>
         )}
-      </div>
-      <div className="mt-8 flex flex-wrap gap-6 text-gray-700">
         {venue.location?.address && (
           <div className="flex items-center gap-2">
             <Apartment /> {venue.location.address}
@@ -105,19 +106,19 @@ function VenuePage({ image, name, location, price, guestCapacity }) {
             <PinDrop /> {venue.location.country}
           </div>
         )}
-        {user && (
-          <div className="flex-1 mt-6 lg:mt-0">
-            <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-4">
-              Book this venue
-            </h2>
-            <BookingForm
-              venueId={venue.id}
-              bookings={venue.bookings}
-              onBookingSuccess={() => {}}
-            />
-          </div>
-        )}
       </div>
+      {user && (
+        <div className="flex-1 mt-6 lg:mt-0 ">
+          <h2 className="text-xl font-semibold border-b-2 border-gray-300 pb-1 mb-4">
+            Book this venue
+          </h2>
+          <BookingForm
+            venueId={venue.id}
+            bookings={venue.bookings}
+            onBookingSuccess={() => {}}
+          />
+        </div>
+      )}
     </div>
   );
 }
