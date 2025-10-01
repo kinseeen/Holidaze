@@ -81,10 +81,10 @@ function VenueList({ venues, search }) {
   const query = search?.toLowerCase() || "";
 
   const filteredVenues = (venues || []).filter((venue) => {
-    const nameMatch = venue.name?.toLowerCase().includes(query) || false;
-    const locationMatch =
-      venue.location?.city?.toLowerCase().includes(query) || false;
-    return nameMatch || locationMatch;
+    const name = (venue.name || "").toLowerCase().trim();
+    const description = (venue.description || "").toLowerCase().trim();
+
+    return name.includes(query) || description.includes(query);
   });
 
   return (
