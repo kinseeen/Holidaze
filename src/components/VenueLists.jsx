@@ -13,9 +13,13 @@ function VenueList({ venues, search }) {
   });
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
       {filteredVenues.map((venue) => (
-        <Link key={venue.id} to={`/venues/${venue.id}`}>
+        <Link
+          key={venue.id}
+          to={`/venues/${venue.id}`}
+          className="w-full max-w-xs"
+        >
           <VenueBox
             image={venue.media?.[0]?.url}
             name={venue.name}
