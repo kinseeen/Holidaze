@@ -13,20 +13,28 @@ function ProfilePageInfo() {
   const { user, loading: authLoading } = useAuth();
   const { name } = useParams();
   const [createOpen, setCreateOpen] = React.useState(false);
+  console.log("Auth State: ", { user, authLoading });
+  const shouldFetch = !authLoading && !!user;
 
-  const { response, loading, error } = useGet(
-    `/holidaze/profiles/${name}?_bookings=true&_venue=true`
+  const {
+    response: response1,
+    loading,
+    error,
+  } = useGet(
+    shouldFetch ? `/holidaze/profiles/${name}?_bookings=true&_venue=true` : null
   );
 
   const { response: venuesResponse } = useGet(
-    `/holidaze/profiles/${name}/venues?_bookings=true&_customer=true`
+    shouldFetch
+      ? `/holidaze/profiles/${name}/venues?_bookings=true&_customer=true`
+      : null
   );
 
   if (authLoading) return <p>Loading profile...</p>;
   if (!user) return <p>Please log in to view this page</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
-  const profile = response?.data;
+  const profile = response1?.data;
   if (!profile) return <p>Profile not found</p>;
   const bookings = profile?.bookings || [];
 

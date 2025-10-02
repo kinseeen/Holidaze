@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import DefaultLayout from "./components/DefaultLayout";
 import RegisterPage from "./pages/RegisterUserPage";
+import ProfilePageInfo from "./components/ProfilePageInfo";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route path="venues/:id" element={<VenuePage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="/profile/:name" element={<ProfilePage />} />
+          <Route path="/profile/:name" element={<ProfilePageInfo />} />
           <Route path="/register" element={<RegisterPage />} />
         </Route>
       </Routes>

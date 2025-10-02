@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import ProfilePageInfo from "../components/ProfilePageInfo";
-
 
 function ProfilePage() {
   return (

@@ -18,6 +18,7 @@ export function useGet(endpoint) {
   };
 
   useEffect(() => {
+    if (!endpoint) return;
     let isMounted = true;
 
     const fetchData = async () => {
