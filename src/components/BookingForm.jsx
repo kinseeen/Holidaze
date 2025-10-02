@@ -75,7 +75,7 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           className="border p-2 rounded w-full"
         />
       </label>
-      <label className="flex flex-col gap-1 flex-1">
+      <label className="flex flex-col gap-1 flex-1 ">
         To
         <input
           type="date"
@@ -83,7 +83,7 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           value={formData.dateTo}
           onChange={handleChange}
           required
-          className="border p-2 rounded w-full"
+          className="border p-2 rounded w-full "
         />
       </label>
       <label className="flex flex-col gap-1 flex-1">
@@ -95,7 +95,7 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           value={formData.guests}
           onChange={handleChange}
           required
-          className="border p-2 rounded w-full"
+          className="border p-2 rounded max-w-full min-w-0"
         />
       </label>
       <button
