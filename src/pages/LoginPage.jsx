@@ -4,7 +4,6 @@ import CustomButtonSmall from "../components/CustomButtonSmall";
 import { usePost } from "../hooks/ApiCalls";
 import { useAuth } from "../hooks/AuthProvider";
 
-
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +23,7 @@ function LoginPage() {
     }
   };
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-[calc(100vh-100px)]">
       <form
         onSubmit={handleSubmit}
         className=" w-full max-w-sm flex flex-col gap-4"

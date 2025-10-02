@@ -27,11 +27,11 @@ function SearchBar({ onSearch }) {
         placeholder="Search venues..."
         value={searchTerm}
         onChange={handleChange}
-        className="flex-1 px-4 py-2 text-sm text-gray-700 placeholder-gray-400 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 w-full px-3 py-2 text-xs sm:text-sm text-gray-700 placeholder-gray-400 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button
         type="submit"
-        className="px-4 py-2 text-sm font-medium text-white bg-blue-900 rounded-r-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-white bg-blue-900 rounded-r-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Search
       </button>

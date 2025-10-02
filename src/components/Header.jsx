@@ -89,11 +89,12 @@ function Header({ setSearch }) {
           <Link to="/" className="flex justify-center items-center">
             <img src={Logo} alt="Logo" className="h-20 object-contain" />
           </Link>
-
-          <SearchBar onSearch={setSearch} />
+          <div className="flex-1 min-w-0 flex justify-center">
+            <SearchBar onSearch={setSearch} />
+          </div>
           <button
             onClick={handleProfileClick}
-            className="ml-4 p-2 rounded-full hover:bg-gray-200"
+            className="ml-2 p-2 rounded-full hover:bg-gray-200 flex-shrink-0"
             title={user ? "Go to Profile" : "Login/Register"}
           >
             <Face />
