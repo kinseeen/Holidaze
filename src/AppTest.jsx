@@ -20,8 +20,8 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route path="venues/:id" element={<VenuePage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="/profile/:name" element={<ProfilePage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="profile/:name" element={<ProfilePage />} />
+          <Route path="register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
