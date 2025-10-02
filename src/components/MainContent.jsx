@@ -11,12 +11,6 @@ function MainContent() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const { search, setSearch } = useOutletContext();
-  // const [minPrice, setMinPrice] = useState("");
-  // const [maxPrice, setMaxPrice] = useState("");
-  // const [minGuest, setMinGuest] = useState("");
-  // const [maxGuest, setMaxGuest] = useState("");
-  // const [ratings, setRatings] = useState([]);
-  // const [modalOpen, setModalOpen] = useState(false);
   const { user } = useAuth();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
@@ -49,11 +43,6 @@ function MainContent() {
           <VenueList
             venues={venues}
             search={search}
-            // minPrice={minPrice}
-            // maxPrice={maxPrice}
-            // minGuest={minGuest}
-            // maxGuest={maxGuest}
-            // ratings={ratings}
           />
         )}
 
