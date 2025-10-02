@@ -50,10 +50,18 @@ function ProfilePageInfo() {
             alt={profile.name}
             className="w-48 h-48 object-cover rounded-full border-4 border-gray-200 shadow-md mb-4"
           />
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 pb-2">
             {profile.name}
           </h1>
-          <p className="text-gray-600 mb-4">{profile.email}</p>
+          <h2 className="text-l font-bold text-gray-900 border-b pb-2 mb-4">
+            {" "}
+            About me
+          </h2>
+          <p className="text-gray-600 mb-4 border-b pb-2 mb-4">
+            {" "}
+            {profile.bio}{" "}
+          </p>
+          <p className="text-gray-600 border-b pb-2 mb-4 ">{profile.email}</p>
 
           {isOwnProfile && (
             <div className="flex items-center flex-col  gap-3 w-full">
