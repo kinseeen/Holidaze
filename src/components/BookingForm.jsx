@@ -64,7 +64,6 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
       onSubmit={handleSubmit}
       className="flex flex-col sm:flex-row sm:items-end sm:gap-4 border p-4 rounded-lg w-full"
     >
-      {/* Date From */}
       <label className="flex flex-col gap-1 flex-1">
         From
         <input

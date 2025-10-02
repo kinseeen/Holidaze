@@ -39,12 +39,13 @@ function MainContent() {
         {error && (
           <p className="text-center text-red-500">Error loading venues</p>
         )}
-        {!loading && !error && (
-          <VenueList
-            venues={venues}
-            search={search}
-          />
-        )}
+        {!loading &&
+          !error &&
+          (venues.length > 0 ? (
+            <VenueList venues={venues} search={search} />
+          ) : search ? (
+            <p className="text-center text-gray-500">No venues found</p>
+          ) : null)}
 
         {!search && (
           <div className="flex justify-center space-x-4 p-4">
