@@ -61,7 +61,7 @@ function ProfilePageInfo() {
             {" "}
             {profile.bio}{" "}
           </p>
-          <p className="text-gray-600 border-b pb-2 mb-4 ">{profile.email}</p>
+          <p className="text-gray-600 border-b pb-2 mb-4">{profile.email}</p>
 
           {isOwnProfile && (
             <div className="flex items-center flex-col  gap-3 w-full">
@@ -93,15 +93,14 @@ function BookingsSection({ bookings }) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {bookings.map((booking) => (
-            <div
+            <Link
+              to={`/venues/${booking.venue.id}`}
               key={booking.id}
-              className="p-4 border rounded-lg shadow-sm hover:shadow-md transition"
+              className="p-4 border rounded-lg shadow-sm hover:shadow-md transition block"
             >
-              {booking.venue && (
-                <p className="font-medium text-gray-800">
-                  Venue: {booking.venue.name}
-                </p>
-              )}
+              <p className="font-medium text-gray-800">
+                Venue: {booking.venue.name}
+              </p>
               <p className="text-gray-700">
                 From: {new Date(booking.dateFrom).toLocaleDateString()}
               </p>
@@ -109,7 +108,7 @@ function BookingsSection({ bookings }) {
                 To: {new Date(booking.dateTo).toLocaleDateString()}
               </p>
               <p className="text-gray-700">Guests: {booking.guests}</p>
-            </div>
+            </Link>
           ))}
         </div>
       )}
