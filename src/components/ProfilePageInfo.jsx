@@ -10,6 +10,8 @@ import ChangeProfilePicture from "./ChangeProfilePicture";
 import CreateVenueModal from "./CreateVenue";
 
 function ProfilePageInfo() {
+  console.log("opening profile page...");
+
   const { user, loading: authLoading } = useAuth();
   const { name } = useParams();
   const [createOpen, setCreateOpen] = React.useState(false);
@@ -29,7 +31,9 @@ function ProfilePageInfo() {
       ? `/holidaze/profiles/${name}/venues?_bookings=true&_customer=true`
       : null
   );
-
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
   if (authLoading) return <p>Loading profile...</p>;
   if (!user) return <p>Please log in to view this page</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
@@ -48,9 +52,6 @@ function ProfilePageInfo() {
         venueName: venue.name,
       }))
     ) || [];
-  if (loading) {
-    return <p className="text-center">Loading...</p>;
-  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
