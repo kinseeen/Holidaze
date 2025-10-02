@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import CustomButtonSmall from "../components/CustomButtonSmall";
-import { usePost } from "../hooks/ApiCalls";
 import { useAuth } from "../hooks/AuthProvider";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { loading, error, post } = usePost("/auth/login");
+  const { loading } = useAuth();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       const userData = await login({ email, password });
       console.log("Logged in user:", userData);
       navigate(`/profile/${userData.name}`);
     } catch (err) {
       console.error("LoginPage error:", err);
+      setError("Invalid email or password");
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-100px)]">
       <form
         onSubmit={handleSubmit}
-        className=" w-full max-w-sm flex flex-col gap-4"
+        className="w-full max-w-sm flex flex-col gap-4"
       >
         <h1 className="text-2xl font-bold text-center mb-4">
           Log in or create an account

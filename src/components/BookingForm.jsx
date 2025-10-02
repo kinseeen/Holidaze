@@ -76,7 +76,6 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           className="border p-2 rounded w-full"
         />
       </label>
-
       <label className="flex flex-col gap-1 flex-1">
         To
         <input
@@ -88,7 +87,6 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           className="border p-2 rounded w-full"
         />
       </label>
-
       <label className="flex flex-col gap-1 flex-1">
         Guests
         <input
@@ -101,7 +99,6 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
           className="border p-2 rounded w-full"
         />
       </label>
-
       <button
         type="submit"
         disabled={loading}
@@ -109,7 +106,6 @@ function BookingForm({ venueId, bookings = [], onBookingSuccess }) {
       >
         {loading ? "Booking..." : "Book Now"}
       </button>
-
       {error && <p className="text-red-500 w-full">{error}</p>}
     </form>
   );
