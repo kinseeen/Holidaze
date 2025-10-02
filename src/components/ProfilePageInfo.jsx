@@ -48,6 +48,9 @@ function ProfilePageInfo() {
         venueName: venue.name,
       }))
     ) || [];
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
