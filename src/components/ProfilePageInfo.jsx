@@ -14,6 +14,7 @@ function ProfilePageInfo() {
   const { name } = useParams();
   const [createOpen, setCreateOpen] = React.useState(false);
   const shouldFetch = !authLoading && !!user;
+  const [myProfile, setMyProfile] = React.useState(null);
 
   const {
     response: response1,
@@ -28,6 +29,13 @@ function ProfilePageInfo() {
       ? `/holidaze/profiles/${name}/venues?_bookings=true&_customer=true`
       : null
   );
+
+  React.useEffect(() => {
+    if (response1?.data) {
+      setMyProfile(response1.data);
+    }
+  }, [response1]);
+
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
@@ -55,8 +63,8 @@ function ProfilePageInfo() {
       <div className="pt-20 flex flex-col md:flex-row items-center md:items-start gap-10">
         <div className="flex flex-col items-center md:w-1/3">
           <img
-            src={profile.avatar?.url || "/default-avatar.png"}
-            alt={profile.name}
+            src={myProfile?.avatar?.url || "/default-avatar.png"}
+            alt={myProfile?.name}
             className="w-48 h-48 object-cover rounded-full border-4 border-gray-200 shadow-md mb-4"
           />
           <h1 className="text-3xl font-bold text-gray-900 mb-2 pb-2">
@@ -72,9 +80,12 @@ function ProfilePageInfo() {
           </p>
           <p className="text-gray-600 border-b pb-2 mb-4">{profile.email}</p>
 
-          {isOwnProfile && (
-            <div className="flex items-center flex-col  gap-3 w-full">
-              <ChangeProfilePicture profile={profile} />
+          {isOwnProfile && myProfile && (
+            <div className="flex items-center flex-col gap-3 w-full">
+              <ChangeProfilePicture
+                profile={myProfile}
+                onUpdate={setMyProfile}
+              />
               <LogoutButton className="w-full" />
             </div>
           )}
