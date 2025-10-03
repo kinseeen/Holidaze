@@ -66,9 +66,9 @@ function CreateVenueModal({ open, onClose, onCreate }) {
     };
     try {
       const newVenue = await post(payload);
-      onCreate(newVenue);
+      console.log("Created venue:", newVenue);
+      onCreate(newVenue.data);
 
-      // Reset
       setFormData({
         name: "",
         imageUrl: "",

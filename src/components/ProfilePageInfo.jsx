@@ -10,12 +10,9 @@ import ChangeProfilePicture from "./ChangeProfilePicture";
 import CreateVenueModal from "./CreateVenue";
 
 function ProfilePageInfo() {
-  console.log("opening profile page...");
-
   const { user, loading: authLoading } = useAuth();
   const { name } = useParams();
   const [createOpen, setCreateOpen] = React.useState(false);
-  console.log("Auth State: ", { user, authLoading });
   const shouldFetch = !authLoading && !!user;
 
   const {

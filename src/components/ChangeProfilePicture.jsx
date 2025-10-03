@@ -13,9 +13,9 @@ function ChangeProfilePicture({ profile, onUpdate }) {
         alt: `${profile.name}'s profile picture`,
       },
     });
-
-    if (updated) {
-      onUpdate(updated);
+    console.log("PUT returned:", updated);
+    if (updated?.data) {
+      onUpdate(updated.data);
     }
   };
 
