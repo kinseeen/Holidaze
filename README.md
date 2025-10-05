@@ -1,9 +1,31 @@
-# 🚀 Holidaze
+# Holidaze
 
-A modern web application built with **React**, **TypeScript**, and **Tailwind CSS**.  
-This project is designed with scalability and maintainability in mind, providing a clean and developer-friendly setup out of the box.
+This project is created as my final exam for Frontend development with Noroff. 
+
+## 🏖️ Project Overview
+The aim of the project is to create a booking platform called Holidaze.
+The site is a booking website where the users can explore, book and manage bookings at different venues. 
+There are three main roles: 
+
+ - **Visitors**: Can browse venues, search for venues, view available dates for venues and register as a user. 
+ - **User**:  Can browse venues, search for venues, view available dates for venues and book venues.
+- **Venue manager**: Create, edit and delete venues and view upcoming bookings. 
+
+The app interacts with the [Noroff Holidaze API](https://docs.noroff.dev/docs/v2) for data management.
 
 ---
+
+This project has been buildt with **React**, **TypeScript**, and **Tailwind CSS**.
+
+---
+## Features
+- User authentication (register, login, logout)
+- Browse all venues with search and filtering
+- View venue details and availability
+- Create and manage bookings
+- Create, update, and delete venues (for managers)
+- Responsive design with Tailwind CSS
+
 
 ## 📦 Tech Stack
 
@@ -15,25 +37,9 @@ This project is designed with scalability and maintainability in mind, providing
 
 ---
 
-## 🗂️ Project Structure
-
-project-root/
-│── src/
-│ ├── assets/ # Static assets (images, fonts, etc.)
-│ ├── components/ # Reusable UI components
-│ ├── pages/ # Page-level components
-│ ├── hooks/ # Custom React hooks
-│ ├── App.tsx # Root component
-│ └── main.tsx # Entry point
-│
-│── public/ # Public static files
-│── tailwind.config.js # Tailwind configuration
-│── tsconfig.json # TypeScript configuration
-│── vite.config.ts # Vite configuration (if using Vite)
-│── package.json
 
 
----
+## To use this project you will ned Node.js with NPM or Yarm installed. 
 
 ## ⚙️ Setup & Installation
 
@@ -98,13 +104,8 @@ theme: {
   },
 }
 
-✅ Scripts
+---
 
-Here are the common scripts defined in package.json:
-Command	Description
-npm run dev	Start development server
-npm run build	Build production-ready files
-npm run preview	Preview production build
-npm run lint	Run ESLint checks
-npm run format	Format code with Prettier
+## 🚀 Deployment
+Live demo: https://holidazeprojectexam.netlify.app/
 
